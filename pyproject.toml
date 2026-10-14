@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "omnimed-jev"
+version = "0.1.0"
+description = "Decision-native medical multimodal models: Choice / Noul / Score decisions over runtime candidate sets on top of MedGemma-1.5-4B."
+license = "Apache-2.0"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Luyao Tang" },
+    { name = "Cheng Chen" },
+]
+keywords = ["medical-imaging", "multimodal", "calibration", "uncertainty", "decision-model", "medgemma"]
+dependencies = [
+    "rich",
+    # ResourceMonitor (used only by `--smoke_test`) and the GPU report that
+    # `sanity.py` prints at the start of every stage.
+    "erbium @ git+https://github.com/ProjectNeura/Erbium.git",
+    "nvidia-ml-py",
+    "accelerate",
+    "bitsandbytes",
+    "datasets",
+    "peft",
+    "pillow",
+    "sentencepiece",
+    "safetensors",
+    # Install the CUDA build matching your driver; the released runs used a
+    # cu124 wheel on A800s.
+    "torch",
+    "transformers",
+    "trl",
+    "wandb",
+    # AUC for the confidence-based metrics in evaluate.py.
+    "scikit-learn",
+    # Module-level imports: `omnimedjev/__entry__.py` reads the custom-args YAML
+    # and `scripts/convert_datasets.py` decodes the source datasets.
+    "pyyaml",
+    "numpy",
+]
+
+[project.optional-dependencies]
+# Report generation (GREEN, CRIMSON) and detection (COCO AP) are outside the
+# scope of the paper -- both output types were removed from the released
+# results. These packages are imported lazily, so they are only needed if you
+# want to run those metrics anyway.
+out-of-scope = [
+    "green_score",
+    "crimson-score",
+    "pycocotools",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.sdist]
+only-include = ["omnimedjev"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["omnimedjev"]
+
+[project.urls]
+Homepage = "https://github.com/lytang63/OmniMed-Jev"
+Repository = "https://github.com/lytang63/OmniMed-Jev"
+Paper = "https://arxiv.org/abs/2610.00381"
+
+[project.scripts]
+omnimedjev = "omnimedjev:__entry__"

@@ -1,0 +1,340 @@
+{
+ "steps": [
+  404,
+  808,
+  1212,
+  1616,
+  2020,
+  2424
+ ],
+ "early_stop": 2424,
+ "note": "checkpoint sweep on the shared 726-row test set; the un-finetuned base was never scored on this set",
+ "families": {
+  "classification": {
+   "metric": "Balanced accuracy",
+   "better": "up",
+   "ours": [
+    0.370911,
+    0.402094,
+    0.511419,
+    0.627536,
+    0.685498,
+    0.689176
+   ],
+   "sft": [
+    0.417146,
+    0.441603,
+    0.534525,
+    0.649851,
+    0.637893,
+    0.646943
+   ]
+  },
+  "multi_label": {
+   "metric": "Multi-label F1",
+   "better": "up",
+   "ours": [
+    0.528333,
+    0.555333,
+    0.567167,
+    0.590167,
+    0.559,
+    0.561833
+   ],
+   "sft": [
+    0.448286,
+    0.565,
+    0.51,
+    0.54,
+    0.568333,
+    0.544857
+   ]
+  },
+  "counting": {
+   "metric": "Counting MAE",
+   "better": "down",
+   "ours": [
+    4.190476,
+    10.769841,
+    3.563492,
+    3.222222,
+    2.865079,
+    2.515873
+   ],
+   "sft": [
+    3.944444,
+    3.960317,
+    2.904762,
+    2.793651,
+    2.722222,
+    2.142857
+   ]
+  },
+  "regression": {
+   "metric": "Regression MAE",
+   "better": "down",
+   "ours": [
+    3.421364,
+    3.932576,
+    3.845456,
+    3.372318,
+    3.535582,
+    2.948786
+   ],
+   "sft": [
+    3.735,
+    11.51,
+    3.25,
+    3.38,
+    3.115,
+    3.34
+   ]
+  }
+ },
+ "provenance": {
+  "generated_utc": "2026-09-24 14:10:07Z",
+  "extractor": "the figure-data extractor",
+  "sources": [
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-404/scores.json",
+    "sha256": "29ad5d1c4fb64929",
+    "bytes": 719
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-808/scores.json",
+    "sha256": "a248486d7791fa35",
+    "bytes": 715
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1212/scores.json",
+    "sha256": "e95fd32e3caa41dc",
+    "bytes": 733
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1616/scores.json",
+    "sha256": "40099641d99dc3ff",
+    "bytes": 714
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2020/scores.json",
+    "sha256": "a1f79bc411f27f56",
+    "bytes": 699
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2424/scores.json",
+    "sha256": "03014a595b4aefb5",
+    "bytes": 698
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-404/scores.json",
+    "sha256": "f3f5cd3e5cb4c2ab",
+    "bytes": 710
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-808/scores.json",
+    "sha256": "76e21daada6d25d2",
+    "bytes": 665
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1212/scores.json",
+    "sha256": "2c0733912b7ec935",
+    "bytes": 663
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1616/scores.json",
+    "sha256": "0c0875cf9251c13d",
+    "bytes": 649
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2020/scores.json",
+    "sha256": "9891b97c72880ad4",
+    "bytes": 682
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2424/scores.json",
+    "sha256": "42eb418ea8fe546b",
+    "bytes": 692
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-404/scores.json",
+    "sha256": "29ad5d1c4fb64929",
+    "bytes": 719
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-808/scores.json",
+    "sha256": "a248486d7791fa35",
+    "bytes": 715
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1212/scores.json",
+    "sha256": "e95fd32e3caa41dc",
+    "bytes": 733
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1616/scores.json",
+    "sha256": "40099641d99dc3ff",
+    "bytes": 714
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2020/scores.json",
+    "sha256": "a1f79bc411f27f56",
+    "bytes": 699
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2424/scores.json",
+    "sha256": "03014a595b4aefb5",
+    "bytes": 698
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-404/scores.json",
+    "sha256": "f3f5cd3e5cb4c2ab",
+    "bytes": 710
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-808/scores.json",
+    "sha256": "76e21daada6d25d2",
+    "bytes": 665
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1212/scores.json",
+    "sha256": "2c0733912b7ec935",
+    "bytes": 663
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1616/scores.json",
+    "sha256": "0c0875cf9251c13d",
+    "bytes": 649
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2020/scores.json",
+    "sha256": "9891b97c72880ad4",
+    "bytes": 682
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2424/scores.json",
+    "sha256": "42eb418ea8fe546b",
+    "bytes": 692
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-404/scores.json",
+    "sha256": "29ad5d1c4fb64929",
+    "bytes": 719
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-808/scores.json",
+    "sha256": "a248486d7791fa35",
+    "bytes": 715
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1212/scores.json",
+    "sha256": "e95fd32e3caa41dc",
+    "bytes": 733
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1616/scores.json",
+    "sha256": "40099641d99dc3ff",
+    "bytes": 714
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2020/scores.json",
+    "sha256": "a1f79bc411f27f56",
+    "bytes": 699
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2424/scores.json",
+    "sha256": "03014a595b4aefb5",
+    "bytes": 698
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-404/scores.json",
+    "sha256": "f3f5cd3e5cb4c2ab",
+    "bytes": 710
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-808/scores.json",
+    "sha256": "76e21daada6d25d2",
+    "bytes": 665
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1212/scores.json",
+    "sha256": "2c0733912b7ec935",
+    "bytes": 663
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1616/scores.json",
+    "sha256": "0c0875cf9251c13d",
+    "bytes": 649
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2020/scores.json",
+    "sha256": "9891b97c72880ad4",
+    "bytes": 682
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2424/scores.json",
+    "sha256": "42eb418ea8fe546b",
+    "bytes": 692
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-404/scores.json",
+    "sha256": "29ad5d1c4fb64929",
+    "bytes": 719
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-808/scores.json",
+    "sha256": "a248486d7791fa35",
+    "bytes": 715
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1212/scores.json",
+    "sha256": "e95fd32e3caa41dc",
+    "bytes": 733
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-1616/scores.json",
+    "sha256": "40099641d99dc3ff",
+    "bytes": 714
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2020/scores.json",
+    "sha256": "a1f79bc411f27f56",
+    "bytes": 699
+   },
+   {
+    "path": "datas/eval/runs-medjev/checkpoint-2424/scores.json",
+    "sha256": "03014a595b4aefb5",
+    "bytes": 698
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-404/scores.json",
+    "sha256": "f3f5cd3e5cb4c2ab",
+    "bytes": 710
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-808/scores.json",
+    "sha256": "76e21daada6d25d2",
+    "bytes": 665
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1212/scores.json",
+    "sha256": "2c0733912b7ec935",
+    "bytes": 663
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-1616/scores.json",
+    "sha256": "0c0875cf9251c13d",
+    "bytes": 649
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2020/scores.json",
+    "sha256": "9891b97c72880ad4",
+    "bytes": 682
+   },
+   {
+    "path": "datas/eval/runs-sft/checkpoint-2424/scores.json",
+    "sha256": "42eb418ea8fe546b",
+    "bytes": 692
+   }
+  ]
+ }
+}

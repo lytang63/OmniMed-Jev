@@ -1,0 +1,19 @@
+# Attempt 2: put the confidence requirement in the system prompt rather than
+# appending it to the end of the user turn.
+split: testing
+model_name_or_path: models/medgemma-1.5-4b-it
+adapter_path: output/sft-lora/checkpoint-2828
+image_size: 448
+resize_mode: square
+max_images_per_sample: 1
+batch_size: 4
+max_new_tokens: 384
+temperature: 0.0
+elicit_confidence: true
+system_prompt: >-
+  You are an expert medical imaging assistant. You must ALWAYS answer in exactly two lines:
+  line 1 is the bare answer with no explanation; line 2 is the confidence.
+  For multiple-choice questions line 2 must be a JSON probability for EVERY option,
+  written as: PROBS: {"option text": 0.0, ...}
+  For every other question line 2 must be: CONFIDENCE: 0.0
+  Never omit line 2.

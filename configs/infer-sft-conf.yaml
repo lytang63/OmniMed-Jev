@@ -1,0 +1,22 @@
+# Attempt 1 at getting the generative baseline to self-report confidence, so its
+# numbers can be put next to the decision arm's probability metrics.
+#
+# `elicit_confidence` appends a request to the prompt: classification and
+# multi-label ask for `PROBS: {"label": <0-1>, ...}` (one probability per
+# candidate), every other task asks for `CONFIDENCE: <0-1>`. `infer.py` parses
+# those into the `scores` / `confidence` fields of each prediction record; the
+# first line stays the ordinary answer, so no existing metric changes.
+#
+# NOTE: this checkpoint was never trained to emit a confidence -- this is
+# prompted self-report. The decision arm's distribution is trained. That
+# asymmetry is itself one of the reported results.
+split: testing
+model_name_or_path: models/medgemma-1.5-4b-it
+adapter_path: output/sft-lora/checkpoint-2828
+image_size: 448
+resize_mode: square
+max_images_per_sample: 1
+batch_size: 16
+max_new_tokens: 384
+temperature: 0.0
+elicit_confidence: true

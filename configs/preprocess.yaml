@@ -1,0 +1,14 @@
+# Preprocessing: converted question JSONs -> MedGemma-style SFT JSONL.
+# All keys below are read by omnimedjev/engine/preprocess.py.
+tasks:
+  - disease_diagnosis_classification
+  - multi_label_classification
+  - detection
+  - cell_counting
+  - regression
+  - report_generation
+allow_missing_images: false
+include_unanswered: false
+# Set to true to skip building the Arrow dataset under hf_dataset/.
+# Evaluation can read either the Arrow dataset or the JSONL files.
+no_hf_dataset: false

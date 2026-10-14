@@ -1,0 +1,22 @@
+# Score the decision arm on the five structured task families.
+#
+# `predictions` points at the folded prediction file, and report_generation is
+# not scored: a report is an unbounded string and has no candidate set, so it
+# falls outside the decision interface.
+#
+# `scripts/sweep_medjev.py` writes an equivalent `evaluate_args.json` itself;
+# this YAML is for reproducing a single evaluation by hand.
+# The ground truth comes from {output_dir}/Preprocessed-{dataset}/testing.jsonl
+# -- the same rows the generative arm is scored on, so the two sets of scores
+# are directly comparable.
+split: testing
+predictions: datas/eval/runs-medjev/checkpoint-2424/testing_predictions.jsonl
+eval_output_dir: datas/eval/runs-medjev/checkpoint-2424
+# The decision arm produces predictions for the four decision families only.
+# The ground-truth file also carries report_generation rows, which have no
+# counterpart, so missing predictions must be allowed or the evaluator aborts
+# on the unmatched uids.
+allow_missing_predictions: true
+iou_threshold: 0.5
+skip_green_score: true
+skip_crimson_score: true

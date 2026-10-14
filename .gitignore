@@ -1,0 +1,41 @@
+# --- Secrets ---
+tokens.txt
+.env
+*.key
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+.DS_Store
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# --- Data: downloaded and derived, never committed ---
+# `datas/stub-input/` is deliberately NOT ignored: the launchers pass it as
+# --input_dir and a fresh clone needs it. Neither is `data/`, which carries the
+# released split manifests.
+datas/raw/
+datas/extracted/
+datas/converted/
+datas/preprocessed/
+datas/balanced/
+datas/medjev/
+datas/logs/
+
+# --- Model weights ---
+models/
+*.safetensors
+*.bin
+
+# --- Experiment outputs ---
+/output/
+runs/
+wandb/
+*.log

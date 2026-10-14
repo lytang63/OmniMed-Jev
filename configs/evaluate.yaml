@@ -1,0 +1,15 @@
+# Scoring of inference predictions.
+# Reads output/{EXPERIMENT_NAME}-infer/*.jsonl and writes
+# output/{EXPERIMENT_NAME}-eval/{scores.json,details.json}.
+split: all
+allow_missing_predictions: false
+iou_threshold: 0.5
+# GREEN (report generation) downloads StanfordAIMI/GREEN-radllama2-7b (~7B).
+# Point this at a local path to avoid re-downloading.
+green_model_name: StanfordAIMI/GREEN-radllama2-7b
+green_batch_size: 8
+green_max_length: 2048
+crimson_api: hf
+crimson_model_name:
+crimson_batch_size: 1
+skip_crimson_score: false

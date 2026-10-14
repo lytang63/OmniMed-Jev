@@ -1,0 +1,50 @@
+# Generative SFT arm: the interface-controlled baseline for OmniMed-Jev.
+#
+# Every entry below is shared with the decision arm except `max_length`; that
+# single difference is a consequence of the interface and is disclosed with the
+# results. See `scripts/train_medjev.py` for the decision arm's two-stage
+# schedule.
+#
+#   1. Only the four evaluated task families are trained on (detection and
+#      report_generation are dropped), giving 23,558 rows -- one per image
+#      state, matching the decision arm's 23,558 states.
+#   2. 5 epochs.
+#   3. shuffle_options: true -- the option order is redrawn on every sample,
+#      the counterpart of the decision arm's candidate augmentation.
+#   4. max_steps is pinned to 3685 so both arms take the same number of steps.
+#   5. save_steps 404 -> 10 checkpoints, the fourth landing on step 1616.
+#
+# Known trade-off: the SFT arm shares one collator between train and eval, so
+# evaluation also shuffles options and the dev loss jitters with the draw. It is
+# left as-is because neither run selects a checkpoint on that value (the
+# released model is the final checkpoint); the effect is confined to the logs.
+model_name_or_path: models/medgemma-1.5-4b-it
+model_output_dir: output/sft-lora
+precision: auto
+image_size: 448
+resize_mode: square
+max_images_per_sample: 1
+load_in_4bit: true
+lora_rank: 16
+lora_alpha: 16
+lora_dropout: 0.05
+target_modules: all-linear
+attn_implementation: flash_attention_2
+gradient_checkpointing: true
+dataloader_num_workers: 8
+max_length: 1024
+seed: 42
+
+# --- option-order augmentation ---
+shuffle_options: true
+
+# --- optimisation budget ---
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 4     # effective batch 32, shared with the decision arm
+max_steps: 3685                    # pinned to the decision arm's actual step count
+max_eval_samples: 128
+save_steps: 404                    # 404*4 = 1616
+eval_steps: 404
+save_total_limit: 0                # keep every checkpoint, for the sweep
+logging_steps: 25
+train_sampling_strategy: group_by_length

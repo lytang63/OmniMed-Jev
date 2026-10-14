@@ -1,0 +1,10 @@
+split: testing
+model_name_or_path: models/medgemma-1.5-4b-it
+base_model: true
+image_size: 448
+resize_mode: square
+max_images_per_sample: 1
+batch_size: 4
+max_new_tokens: 384
+temperature: 0.0
+elicit_confidence: true

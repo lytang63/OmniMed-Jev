@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this code or the released checkpoints, please cite the paper."
+title: "OmniMed-Jev: Calibrating LVLM Confidence for Trustworthy Medical Multimodal Decisions via System One"
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/lytang63/OmniMed-Jev"
+url: "https://arxiv.org/abs/2610.00381"
+authors:
+  - family-names: Tang
+    given-names: Luyao
+  - family-names: Chen
+    given-names: Cheng
+preferred-citation:
+  type: article
+  title: "OmniMed-Jev: Calibrating LVLM Confidence for Trustworthy Medical Multimodal Decisions via System One"
+  authors:
+    - family-names: Tang
+      given-names: Luyao
+    - family-names: Chen
+      given-names: Cheng
+  year: 2026
+  journal: "arXiv preprint"
+  eprint: "2610.00381"
+  archive-prefix: "arXiv"
+  url: "https://arxiv.org/abs/2610.00381"

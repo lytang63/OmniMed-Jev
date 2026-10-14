@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OmniMed-Jev: Calibrating LVLM confidence for trustworthy medical multimodal decisions via System One.">
+  <title>OmniMed-Jev — Decision-native medical multimodal models</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #122a3a;
+      --ink-soft: #486273;
+      --paper: #f8fbfa;
+      --paper-deep: #edf5f2;
+      --line: #d7e5e1;
+      --white: #fff;
+      --teal: #087f75;
+      --teal-dark: #075b59;
+      --mint: #bfe9d9;
+      --coral: #ef725c;
+      --orange: #f2a35d;
+      --shadow: 0 24px 70px rgba(22, 63, 66, .12);
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --display: 'Space Grotesk', var(--sans);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); line-height: 1.55; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .nav { position: sticky; top: 0; z-index: 20; height: 74px; background: rgba(248,251,250,.86); border-bottom: 1px solid rgba(215,229,225,.8); backdrop-filter: blur(16px); }
+    .nav-inner { max-width: 1180px; height: 100%; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-family: var(--display); font-weight: 700; letter-spacing: -.03em; }
+    .brand-mark { width: 34px; height: 34px; border-radius: 11px; background: var(--teal); display: grid; place-items: center; color: white; font-size: 15px; box-shadow: 0 7px 18px rgba(8,127,117,.22); }
+    .brand span { font-size: 18px; }
+    .brand em { color: var(--coral); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 26px; color: var(--ink-soft); font-size: 13px; font-weight: 600; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { border: 1px solid var(--teal); color: var(--teal); border-radius: 999px; padding: 9px 15px; }
+    .nav-cta:hover { background: var(--teal); color: #fff; }
+    .hero { position: relative; overflow: hidden; min-height: 720px; display: grid; align-items: center; border-bottom: 1px solid var(--line); }
+    .hero::before { content: ''; position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(191,233,217,.72), rgba(191,233,217,0) 68%); top: -220px; right: -120px; pointer-events: none; }
+    .hero::after { content: ''; position: absolute; width: 530px; height: 530px; border-radius: 50%; background: radial-gradient(circle, rgba(242,163,93,.13), rgba(242,163,93,0) 66%); bottom: -250px; left: -140px; pointer-events: none; }
+    .hero-inner { position: relative; z-index: 1; max-width: 1180px; width: 100%; margin: 0 auto; padding: 86px 28px 96px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr); gap: 66px; align-items: center; }
+    .eyebrow { color: var(--teal); font-family: var(--display); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; margin-bottom: 22px; }
+    h1,h2,h3 { font-family: var(--display); letter-spacing: -.055em; line-height: 1.04; margin: 0; }
+    h1 { font-size: clamp(48px, 6.3vw, 82px); max-width: 700px; }
+    h1 .accent { color: var(--teal); }
+    h1 .accent-coral { color: var(--coral); }
+    .hero-copy { max-width: 600px; color: var(--ink-soft); font-size: 19px; margin: 28px 0 0; }
+    .hero-copy strong { color: var(--ink); font-weight: 600; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 47px; padding: 0 20px; border-radius: 999px; font-weight: 700; font-size: 14px; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { background: var(--teal); color: #fff; box-shadow: 0 9px 22px rgba(8,127,117,.22); }
+    .button.primary:hover { background: var(--teal-dark); box-shadow: 0 12px 28px rgba(8,127,117,.28); }
+    .button.secondary { border: 1px solid var(--line); color: var(--ink); background: rgba(255,255,255,.6); }
+    .button.secondary:hover { border-color: var(--teal); color: var(--teal); }
+    .hero-visual { position: relative; min-height: 450px; display: grid; place-items: center; }
+    .visual-orbit { position: absolute; width: min(430px, 86vw); aspect-ratio: 1; border: 1px solid rgba(8,127,117,.18); border-radius: 50%; transform: rotate(-19deg); }
+    .visual-orbit::before, .visual-orbit::after { content: ''; position: absolute; width: 9px; height: 9px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 7px rgba(239,114,92,.13); }
+    .visual-orbit::before { top: 18%; right: 7%; }
+    .visual-orbit::after { bottom: 11%; left: 10%; background: var(--teal); box-shadow: 0 0 0 7px rgba(8,127,117,.13); }
+    .logo-card { position: relative; width: min(400px, 88vw); padding: 28px; background: rgba(255,255,255,.86); border: 1px solid rgba(215,229,225,.9); border-radius: 25px; box-shadow: var(--shadow); transform: rotate(2.2deg); }
+    .logo-card img { width: 100%; aspect-ratio: 1.53; object-fit: contain; mix-blend-mode: multiply; }
+    .visual-caption { position: absolute; left: 10px; bottom: 13px; font-size: 11px; color: var(--ink-soft); letter-spacing: .08em; text-transform: uppercase; }
+    .strip { background: var(--teal); color: white; }
+    .strip-inner { max-width: 1180px; margin: 0 auto; padding: 19px 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .strip-item { display: flex; align-items: baseline; gap: 10px; border-right: 1px solid rgba(255,255,255,.25); }
+    .strip-item:last-child { border: 0; }
+    .strip-number { font-family: var(--display); font-weight: 700; font-size: 25px; letter-spacing: -.05em; }
+    .strip-label { color: rgba(255,255,255,.78); font-size: 12px; }
+    .section { padding: 112px 28px; }
+    .section.tinted { background: var(--paper-deep); }
+    .section-inner { max-width: 1180px; margin: 0 auto; }
+    .section-kicker { color: var(--teal); text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 700; margin-bottom: 15px; }
+    h2 { font-size: clamp(35px, 4.5vw, 60px); max-width: 730px; }
+    .lead { max-width: 680px; margin: 22px 0 0; color: var(--ink-soft); font-size: 17px; }
+    .split { display: grid; grid-template-columns: .9fr 1.1fr; gap: 72px; align-items: start; }
+    .quote { font-family: var(--serif); font-size: clamp(28px, 3.4vw, 45px); line-height: 1.18; color: var(--ink); margin-top: 42px; }
+    .quote::before { content: '“'; color: var(--coral); font-size: 1.7em; line-height: 0; vertical-align: -.23em; margin-right: 5px; }
+    .problem-panel { margin-top: 8px; border-top: 1px solid var(--line); }
+    .problem-row { display: grid; grid-template-columns: 118px 1fr; gap: 22px; padding: 21px 0; border-bottom: 1px solid var(--line); }
+    .problem-row b { color: var(--coral); font-family: var(--display); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+    .problem-row p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+    .figure-wrap { margin-top: 58px; padding: 16px; border-radius: 18px; background: rgba(255,255,255,.7); border: 1px solid var(--line); box-shadow: 0 12px 35px rgba(22,63,66,.06); }
+    .figure-wrap img { width: 100%; border-radius: 10px; }
+    .caption { color: var(--ink-soft); font-size: 12px; margin: 12px 4px 2px; }
+    .type-grid { margin-top: 55px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .type-card { position: relative; min-height: 290px; padding: 26px; background: var(--white); border: 1px solid var(--line); border-radius: 15px; overflow: hidden; }
+    .type-card::after { content: ''; position: absolute; width: 130px; height: 130px; border-radius: 50%; right: -45px; bottom: -47px; background: var(--mint); opacity: .55; }
+    .type-code { font-family: var(--display); color: var(--coral); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+    .type-card h3 { font-size: 30px; margin-top: 30px; }
+    .type-card p { color: var(--ink-soft); font-size: 14px; max-width: 250px; margin-top: 16px; }
+    .type-example { position: absolute; z-index: 1; bottom: 22px; left: 26px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--teal); font-size: 12px; }
+    .results-head { display: flex; justify-content: space-between; gap: 28px; align-items: end; }
+    .results-head .lead { margin-bottom: 3px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; margin-top: 53px; }
+    .metric { padding: 24px; border-top: 3px solid var(--teal); background: var(--white); min-height: 170px; border-radius: 4px 4px 13px 13px; box-shadow: 0 9px 24px rgba(22,63,66,.05); }
+    .metric:nth-child(2) { border-color: var(--coral); }
+    .metric:nth-child(3) { border-color: var(--orange); }
+    .metric strong { display: block; font-family: var(--display); color: var(--teal); font-size: 51px; line-height: 1; letter-spacing: -.08em; }
+    .metric:nth-child(2) strong { color: var(--coral); }
+    .metric:nth-child(3) strong { color: #c87828; }
+    .metric span { display: block; margin-top: 12px; color: var(--ink-soft); font-size: 14px; }
+    .results-table { width: 100%; margin-top: 46px; border-collapse: collapse; background: rgba(255,255,255,.6); font-size: 14px; }
+    .results-table th, .results-table td { text-align: left; padding: 16px 14px; border-bottom: 1px solid var(--line); }
+    .results-table th { color: var(--ink-soft); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+    .results-table td:not(:first-child) { font-variant-numeric: tabular-nums; }
+    .results-table .jev { color: var(--teal); font-weight: 700; }
+    .results-note { margin-top: 18px; color: var(--ink-soft); font-size: 13px; max-width: 850px; }
+    .visual-results { margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .visual-results .figure-wrap { margin-top: 0; }
+    .workflow { margin-top: 52px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border: 1px solid var(--line); background: var(--white); }
+    .workflow-step { min-height: 220px; padding: 29px; border-right: 1px solid var(--line); position: relative; }
+    .workflow-step:last-child { border: 0; }
+    .workflow-step::after { content: '→'; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); width: 21px; height: 21px; border-radius: 50%; background: var(--coral); color: #fff; display: grid; place-items: center; font-size: 12px; z-index: 2; }
+    .workflow-step:last-child::after { display: none; }
+    .workflow-num { font-family: var(--display); color: var(--coral); font-size: 12px; font-weight: 700; }
+    .workflow-step h3 { font-size: 25px; margin-top: 28px; }
+    .workflow-step p { color: var(--ink-soft); font-size: 14px; margin-top: 12px; }
+    .code-line { display: inline-block; margin-top: 14px; background: #e8f3ee; color: var(--teal-dark); border-radius: 5px; padding: 4px 8px; font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .repo { background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+    .repo::after { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(191,233,217,.18); right: -160px; top: -250px; }
+    .repo .section-inner { position: relative; z-index: 1; }
+    .repo .section-kicker { color: var(--mint); }
+    .repo h2 { color: #fff; max-width: 630px; }
+    .repo .lead { color: rgba(255,255,255,.69); }
+    .repo-grid { margin-top: 45px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .repo-card { border: 1px solid rgba(255,255,255,.2); border-radius: 14px; padding: 22px; min-height: 155px; background: rgba(255,255,255,.035); }
+    .repo-card b { color: var(--mint); font-family: var(--display); }
+    .repo-card p { color: rgba(255,255,255,.64); font-size: 14px; margin: 11px 0 0; }
+    .repo-actions { margin-top: 35px; }
+    .repo .button.secondary { color: #fff; border-color: rgba(255,255,255,.27); background: transparent; }
+    .repo .button.secondary:hover { border-color: var(--mint); color: var(--mint); }
+    .citation { margin-top: 72px; padding: 25px; border: 1px solid var(--line); background: var(--white); border-radius: 13px; }
+    .citation-label { color: var(--teal); text-transform: uppercase; letter-spacing: .12em; font-size: 11px; font-weight: 700; }
+    pre { overflow-x: auto; color: var(--ink-soft); font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; margin: 15px 0 0; }
+    footer { padding: 28px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 12px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; gap: 20px; }
+    .footer-inner a { color: var(--teal); font-weight: 600; }
+    .reveal { opacity: 0; transform: translateY(15px); animation: rise .65s ease forwards; }
+    .delay-1 { animation-delay: .08s; } .delay-2 { animation-delay: .16s; } .delay-3 { animation-delay: .24s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal { animation: none; opacity: 1; transform: none; } * { transition: none !important; } }
+    @media (max-width: 820px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero-inner, .split { grid-template-columns: 1fr; gap: 48px; }
+      .hero { min-height: auto; }
+      .hero-inner { padding-top: 70px; padding-bottom: 72px; }
+      .hero-visual { min-height: 350px; }
+      .strip-inner { grid-template-columns: repeat(2, 1fr); }
+      .strip-item:nth-child(2) { border: 0; }
+      .type-grid, .metric-grid { grid-template-columns: 1fr; }
+      .visual-results, .repo-grid { grid-template-columns: 1fr; }
+      .workflow { grid-template-columns: 1fr; }
+      .workflow-step { border-right: 0; border-bottom: 1px solid var(--line); min-height: 180px; }
+      .workflow-step::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -11px; transform: translateX(-50%); }
+      .results-head { display: block; }
+      .results-head .lead { margin-top: 17px; }
+    }
+    @media (max-width: 560px) {
+      .nav { height: 64px; } .nav-inner { padding: 0 18px; } .nav-links { gap: 8px; }
+      .section { padding: 78px 18px; } .hero-inner { padding-left: 18px; padding-right: 18px; }
+      .strip-inner { padding-left: 18px; padding-right: 18px; gap: 13px; }
+      .strip-item { display: block; } .strip-number { display: block; }
+      .results-table { font-size: 12px; } .results-table th, .results-table td { padding: 12px 7px; }
+      .footer-inner { display: block; } .footer-inner span { display: block; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="OmniMed-Jev home"><span class="brand-mark">◌</span><span>OmniMed<em>-Jev</em></span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#method">Method</a><a href="#results">Results</a><a href="#data">Data</a><a href="#reproduce">Reproduce</a>
+        <a href="https://huggingface.co/xmutly/OmniMed-Jev-4B" target="_blank" rel="noreferrer">Hugging Face ↗</a>
+        <a class="nav-cta" href="https://github.com/lytang63/OmniMed-Jev" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow reveal">Medical multimodal decisions · System One</div>
+          <h1 class="reveal delay-1">Confidence that<br><span class="accent">means</span> what it<br><span class="accent-coral">says.</span></h1>
+          <p class="hero-copy reveal delay-2">OmniMed-Jev turns bounded medical predictions into <strong>native decision distributions</strong> — so a model can answer correctly, and tell you how likely it is to be correct.</p>
+          <div class="actions reveal delay-3"><a class="button primary" href="https://arxiv.org/abs/2610.00381" target="_blank" rel="noreferrer">Read the paper ↗</a><a class="button secondary" href="https://github.com/lytang63/OmniMed-Jev" target="_blank" rel="noreferrer">Explore the code</a></div>
+        </div>
+        <div class="hero-visual reveal delay-2" aria-label="OmniMed-Jev logo">
+          <div class="visual-orbit"></div>
+          <div class="logo-card"><img src="assets/logo.png" alt="OmniMed-Jev logo"><div class="visual-caption">one state · many decisions</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="strip" aria-label="Project scale">
+      <div class="strip-inner"><div class="strip-item"><span class="strip-number">15</span><span class="strip-label">source datasets</span></div><div class="strip-item"><span class="strip-number">8</span><span class="strip-label">modality labels</span></div><div class="strip-item"><span class="strip-number">155,729</span><span class="strip-label">decision targets</span></div><div class="strip-item"><span class="strip-number">126×</span><span class="strip-label">lower reliability error</span></div></div>
+    </section>
+
+    <section class="section" id="motivation">
+      <div class="section-inner split">
+        <div><div class="section-kicker">01 / Motivation</div><h2>Token probability is not decision probability.</h2><p class="quote">The number a medical model reports should be a number a decision rule can trust.</p></div>
+        <div class="problem-panel"><div class="problem-row"><b>Today</b><p>Diagnoses, finding lists, counts and measurements are all serialized into text. The model's probability is about the next token, not directly about the medical decision.</p></div><div class="problem-row"><b>Risk</b><p>Overconfidence lets errors pass with too little scrutiny. Underconfidence sends cases that could be handled automatically to unnecessary review.</p></div><div class="problem-row"><b>Shift</b><p>Make the candidate set part of the input and train the model to return a normalized distribution over the decision itself.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section tinted" id="method">
+      <div class="section-inner"><div class="section-kicker">02 / Method</div><h2>One medical state.<br>Many typed decisions.</h2><p class="lead">The shared MedGemma-1.5-4B backbone reads the image, question and runtime candidate set. A shared scorer returns a probability distribution for each decision in one forward pass.</p>
+        <div class="type-grid"><article class="type-card"><div class="type-code">Choice</div><h3>Pick a class.</h3><p>Mutually exclusive candidates for diagnosis, organ or tissue classification.</p><div class="type-example">P(c₁), P(c₂), …, P(cₖ)</div></article><article class="type-card"><div class="type-code">Noul</div><h3>Find a finding.</h3><p>A separate No / Yes distribution for each radiographic finding.</p><div class="type-example">P(No), P(Yes) × 14</div></article><article class="type-card"><div class="type-code">Score</div><h3>Measure a value.</h3><p>An ordered grid for counts, ejection fraction and retinal scores.</p><div class="type-example">Σ p(vₖ) · vₖ</div></article></div>
+        <div class="figure-wrap"><img src="assets/figures/fig1_overview.png" alt="Generalist medical MLLMs compared with OmniMed-Jev decision interface"><p class="caption">Figure 1 · The backbone stays multimodal; the output object becomes a candidate-conditioned decision distribution.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="results">
+      <div class="section-inner"><div class="section-kicker">03 / Results</div><div class="results-head"><h2>Calibration is where<br>the interface changes.</h2><p class="lead">Under an interface-controlled comparison, point predictions remain comparable while reported probabilities track observed correctness much more closely.</p></div>
+        <div class="metric-grid"><div class="metric"><strong>126×</strong><span>lower multi-label reliability error</span></div><div class="metric"><strong>20×</strong><span>lower multi-label selective risk area</span></div><div class="metric"><strong>9.1×</strong><span>lower classification reliability error</span></div></div>
+        <table class="results-table"><thead><tr><th>Task family</th><th>Metric</th><th>Gen-SFT</th><th>OmniMed-Jev</th><th>Direction</th></tr></thead><tbody><tr><td>Classification</td><td>Balanced accuracy ↑</td><td>0.6469</td><td class="jev">0.6892</td><td>comparable</td></tr><tr><td>Multi-label</td><td>Macro F1 ↑</td><td>0.5449</td><td class="jev">0.5618</td><td>comparable</td></tr><tr><td>Counting</td><td>MAE ↓</td><td class="jev">2.1429</td><td>2.5159</td><td>baseline ahead</td></tr><tr><td>Regression</td><td>MAE ↓</td><td>3.3400</td><td class="jev">2.9488</td><td>comparable</td></tr></tbody></table>
+        <p class="results-note">The point-prediction comparison establishes no general accuracy advantage. Counting is the boundary case: folding a distribution over a wide ordered grid to its expectation can pull extreme values toward the centre.</p>
+        <div class="visual-results"><div class="figure-wrap"><img src="assets/figures/fig3_reliability_resolution.png" alt="Reliability versus resolution comparison"><p class="caption">Figure 3 · OmniMed-Jev moves all four families to the side where the reported number is more reliable than the baseline's reconstructed confidence.</p></div><div class="figure-wrap"><img src="assets/figures/fig4_selective_prediction.png" alt="Selective prediction risk coverage curves"><p class="caption">Figure 4 · Better confidence ranking supports lower-risk selective prediction, especially for multi-label findings.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section tinted" id="data">
+      <div class="section-inner"><div class="section-kicker">04 / Decision workflow</div><h2>From image to an auditable decision.</h2><p class="lead">The same state can carry a diagnosis, a set of findings and measurements without collapsing them into one generated string.</p>
+        <div class="workflow"><div class="workflow-step"><div class="workflow-num">01 / READ</div><h3>Medical state</h3><p>Image, modality and question enter the shared multimodal backbone.</p><span class="code-line">S + Q + C → hidden states</span></div><div class="workflow-step"><div class="workflow-num">02 / SCORE</div><h3>Candidate space</h3><p>Each candidate is read as semantic input, not as a fixed output index.</p><span class="code-line">zⱼₖ = f(hstate, hcⱼₖ)</span></div><div class="workflow-step"><div class="workflow-num">03 / ACT</div><h3>Decision rule</h3><p>Use the distribution for ranking, shortlisting, folding or escalation.</p><span class="code-line">p(c) → review / act</span></div></div>
+        <div class="figure-wrap"><img src="assets/figures/fig2_dynamics.png" alt="Learning dynamics across task families"><p class="caption">Figure 2 · The two interfaces learn differently across checkpoints; the comparison uses step 2424.</p></div>
+      </div>
+    </section>
+
+    <section class="section repo" id="reproduce">
+      <div class="section-inner"><div class="section-kicker">05 / Open source</div><h2>Reproduce the comparison.<br>Inspect every metric.</h2><p class="lead">The repository ships the decision interface, training and evaluation scripts, frozen splits, figure data and reproduction notes.</p><div class="repo-grid"><div class="repo-card"><b>Released code</b><p>Python package, configs, launch scripts and the two-stage MedJev trainer.</p></div><div class="repo-card"><b>Released splits</b><p>23,558 train UIDs, 600 validation UIDs and 726 held-out test states.</p></div><div class="repo-card"><b>Released weights</b><p>LoRA adapter plus decision head on top of google/medgemma-1.5-4b-it.</p></div><div class="repo-card"><b>Transparent scope</b><p>Metrics, reconstruction caveats and every not-like-for-like detail are documented.</p></div></div><div class="actions repo-actions"><a class="button primary" href="https://github.com/lytang63/OmniMed-Jev" target="_blank" rel="noreferrer">GitHub repository ↗</a><a class="button secondary" href="https://huggingface.co/xmutly/OmniMed-Jev-4B" target="_blank" rel="noreferrer">Hugging Face weights ↗</a></div></div>
+    </section>
+
+    <section class="section" id="citation"><div class="section-inner"><div class="citation"><div class="citation-label">Citation</div><pre>@article{tang2026omnimedjev,
+  title   = {OmniMed-Jev: Calibrating LVLM Confidence for Trustworthy Medical Multimodal Decisions via System One},
+  author  = {Tang, Luyao and Chen, Cheng},
+  journal = {arXiv preprint arXiv:2610.00381},
+  year    = {2026}
+}</pre></div></div></section>
+  </main>
+  <footer><div class="footer-inner"><span>OmniMed-Jev · Luyao Tang and Cheng Chen · The University of Hong Kong</span><span><a href="https://arxiv.org/abs/2610.00381" target="_blank" rel="noreferrer">Paper</a> · <a href="https://github.com/lytang63/OmniMed-Jev" target="_blank" rel="noreferrer">Code</a> · Apache-2.0</span></div></footer>
+</body>
+</html>
