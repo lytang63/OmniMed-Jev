@@ -4,8 +4,8 @@
   <p><b>Calibrating LVLM Confidence for Trustworthy Medical Multimodal Decisions via System One</b></p>
   <p>
     <a href="https://arxiv.org/abs/2610.00381"><img src="https://img.shields.io/badge/arXiv-2610.00381-b31b1b.svg" alt="arXiv"></a>
-    <a href="https://lytang63.github.io/OmniMed-Jev/"><img src="https://img.shields.io/badge/Project%20page-OmniMed--Jev-087f75.svg" alt="Project page"></a>
-    <a href="https://huggingface.co/xmutly/OmniMed-Jev-4B"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Weights-xmutly/OmniMed-Jev-4B-yellow.svg" alt="Weights"></a>
+    <a href="https://lytang63.github.io/OmniMed-Jev/"><img src="https://img.shields.io/badge/Project_page-OmniMed--Jev-087f75.svg" alt="Project page"></a>
+    <a href="https://huggingface.co/xmutly/OmniMed-Jev-4B"><img src="https://img.shields.io/badge/Weights-HuggingFace-yellow.svg" alt="Weights"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
     <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.12-blue.svg" alt="Python"></a>
     <a href="https://huggingface.co/google/medgemma-1.5-4b-it"><img src="https://img.shields.io/badge/backbone-MedGemma--1.5--4B-lightgrey.svg" alt="Backbone"></a>
